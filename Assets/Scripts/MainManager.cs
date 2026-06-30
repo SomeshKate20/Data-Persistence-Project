@@ -12,9 +12,6 @@ public class MainManager : MonoBehaviour
     public Rigidbody Ball;
 
     public TMP_Text ScoreText;
-    public TMP_Text PlayerNameText;
-    public TMP_Text HighScoreText;
-
     public GameObject GameOverText;
 
     private bool m_Started = false;
@@ -40,16 +37,6 @@ public class MainManager : MonoBehaviour
 
     void Start()
     {
-        // Show player name
-        PlayerNameText.text = "Player: " + GameData.PlayerName;
-
-        // Load saved high score
-        int savedHighScore = PlayerPrefs.GetInt("HighScore", 0);
-        string savedPlayer = PlayerPrefs.GetString("HighScorePlayer");
-
-        HighScoreText.text = "High Score: " + savedHighScore ;
-
-        // Create bricks
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
 
@@ -97,17 +84,6 @@ public class MainManager : MonoBehaviour
     {
         m_Points += point;
         ScoreText.text = "Score : " + m_Points;
-
-        int highScore = PlayerPrefs.GetInt("HighScore", 0);
-
-        if (m_Points > highScore)
-        {
-            PlayerPrefs.SetInt("HighScore", m_Points);
-            PlayerPrefs.SetString("HighScorePlayer", GameData.PlayerName);
-            PlayerPrefs.Save();
-
-            HighScoreText.text = "High Score: " + m_Points ;
-        }
     }
 
     public void GameOver()
